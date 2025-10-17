@@ -1,33 +1,20 @@
-import { useState } from 'react'
-import './App.css'
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import About from './components/About'
-import EducationFocus from './components/EducationFocus'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
-import DarkBg from './assets/visax-r9DV-EdDmWM-unsplash.jpg'
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import StarBattlePage from "./pages/StarBattlePage";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="relative min-h-screen">
-      <img
-        src={DarkBg}
-        alt="Background"
-        className="absolute inset-0 w-full h-full object-cover"
-      />
-      <div className="relative z-10">
-        <Navbar />
-        <Hero />
-        <About />
-        <EducationFocus />
-        <Contact />
-        <Footer />
-      </div>
-    </div>
-  )
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/star-battle" element={<StarBattlePage />} />
+      </Routes>
+      <Footer />
+    </Router>
+  );
 }
 
-export default App
+export default App;
