@@ -1,6 +1,7 @@
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import StarBattlePage from "./pages/StarBattlePage";
+import StarBattlePuzzlesPage from "./pages/StarBattlePuzzlesPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/star-battle" element={<StarBattlePage />} />
+        <Route path="/star-battle-puzzles" element={<StarBattlePuzzlesPage />} />
       </Routes>
       <Footer />
     </Router>

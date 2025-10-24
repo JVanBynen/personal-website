@@ -1,8 +1,6 @@
-import { Link } from "react-router-dom";
-
-const BattleHero = () => {
+const PuzzleHero = () => {
     return (
-        <div className="text-white text-center py-16 px-4" id="battle-hero">
+        <div className="text-white text-center py-16 px-4" id="puzzle-hero">
 
 
             <h1 className="text-4xl font-bold mb-4">
@@ -12,16 +10,14 @@ const BattleHero = () => {
             </h1>
 
             <p className="text-lg text-gray-300 max-w-2xl mx-auto mb-6 text-left [text-indent:2em]">
-                Logic puzzles are one of my favorite pastimes. I enjoy the
-                challenge of figuring out patterns and reasoning through
-                problems, and Star Battle puzzles hit that sweet spot of
-                logic and design.
+                Computer generated star battle puzzles can be made in an instant and are easily searchable,
+                but never match the quality of a handmade puzzle. Below is a small collection of hand
+                crafted puzzles for you to try.
             </p>
 
             <p className="text-lg text-gray-300 max-w-2xl mx-auto mb-6 text-left [text-indent:2em]">
-                Below, you'll find a short guide to some common star battle
-                puzzle strategies. You can follow along to learn key techniques,
-                or head to the next page to try solving puzzles yourself!
+                The puzzles go in order of increasing difficulty. I am warning you now, the harder puzzles
+                can take an average solver over an hour so attempt at your own peril.
             </p>
 
             <h1 className="text-4xl font-bold mb-4">
@@ -38,17 +34,8 @@ const BattleHero = () => {
                 </ol>
             </div>
 
-
-            <div className="mt-8 space-x-4">
-                <Link
-                    to="/star-battle-puzzles"
-                    className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 py-2 rounded-full transform transition-transform duration-300 hover:scale-105 inline-block"
-                >
-                    Try Puzzles
-                </Link>
-            </div>
         </div>
     );
 };
 
-export default BattleHero;
+export default PuzzleHero;

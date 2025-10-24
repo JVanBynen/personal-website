@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import StarImage from "../assets/star.png";
 import RedX from "../assets/red-x.png";
 
@@ -7,9 +7,10 @@ function StarBattle({
     starsPerRow = 2,
     regions,
     locked = false,
-    presetStars = [],   // { r, c } permanent stars
-    presetXs = [],      // { r, c } permanent Xs
-    presetShades = [],  // { r, c } shaded cells
+    presetStars = [],       // { r, c } permanent stars
+    presetXs = [],          // { r, c } permanent Xs
+    presetShades = [],      // { r, c } shaded cells
+    solutionGrid = null,    // optional solution grid for validation
 }) {
     // main star grid
     const [grid, setGrid] = useState(
@@ -48,6 +49,94 @@ function StarBattle({
         )
     );
 
+    // Track if the right mouse button is held down
+    const [isRightMouseDown, setIsRightMouseDown] = useState(false);
+    const [xActionMode, setXActionMode] = useState(null); // "place" or "remove"
+    useEffect(() => {
+        const handleMouseUp = (e) => {
+            if (e.button === 2) {
+                setIsRightMouseDown(false);
+                setXActionMode(null);
+            }
+        };
+
+        // This prevents the context menu **anywhere** on the page while dragging
+        const preventContextMenu = (e) => {
+            if (isRightMouseDown) e.preventDefault();
+        };
+
+        window.addEventListener("mouseup", handleMouseUp);
+        window.addEventListener("contextmenu", preventContextMenu);
+
+        return () => {
+            window.removeEventListener("mouseup", handleMouseUp);
+            window.removeEventListener("contextmenu", preventContextMenu);
+        };
+    }, [isRightMouseDown]);
+
+    // Detect global mouse release to stop drawing
+    useEffect(() => {
+        const handleMouseDown = (e) => {
+            if (e.button === 2) setIsRightMouseDown(true);
+        };
+
+        const handleMouseUp = (e) => {
+            if (e.button === 2) {
+                setIsRightMouseDown(false);
+                setXActionMode(null); // reset the place/remove mode
+            }
+        };
+
+        const preventMenu = (e) => e.preventDefault();
+
+        window.addEventListener("mousedown", handleMouseDown);
+        window.addEventListener("mouseup", handleMouseUp);
+        window.addEventListener("contextmenu", preventMenu);
+
+        return () => {
+            window.removeEventListener("mousedown", handleMouseDown);
+            window.removeEventListener("mouseup", handleMouseUp);
+            window.removeEventListener("contextmenu", preventMenu);
+        };
+    }, []);
+
+    const handleRightMouseDown = (e, row, col) => {
+        if (e.button === 2) {
+            e.preventDefault();
+            setIsRightMouseDown(true);
+
+            const cellHasX = xGrid[row][col];
+            const mode = cellHasX ? "remove" : "place";
+            setXActionMode(mode);
+
+            const newXGrid = xGrid.map(r => [...r]);
+            if (!locked && !lockedGrid[row][col] && !grid[row][col]) {
+                newXGrid[row][col] = mode === "place";
+                setXGrid(newXGrid);
+            }
+        }
+    };
+
+    const handleRightMouseEnter = (e, row, col) => {
+        if (isRightMouseDown && xActionMode) {
+            e.preventDefault();
+            if (locked || lockedGrid[row][col] || grid[row][col]) return;
+
+            const newXGrid = xGrid.map(r => [...r]);
+            if (xActionMode === "place" && !newXGrid[row][col]) {
+                newXGrid[row][col] = true;
+            } else if (xActionMode === "remove" && newXGrid[row][col]) {
+                newXGrid[row][col] = false;
+            }
+            setXGrid(newXGrid);
+        }
+    };
+
+    const handleMouseUp = () => {
+        setIsRightMouseDown(false);
+        setXActionMode(null);
+    };
+
     const [message, setMessage] = useState("");
     const cellSize = 48;
     const gap = 2;
@@ -69,8 +158,10 @@ function StarBattle({
         e.preventDefault();
         if (locked || lockedGrid[row][col] || grid[row][col]) return;
         const newXGrid = xGrid.map(r => [...r]);
-        newXGrid[row][col] = !newXGrid[row][col];
-        setXGrid(newXGrid);
+        if (!newXGrid[row][col]) {
+            newXGrid[row][col] = true; // only place X if not already set
+            setXGrid(newXGrid);
+        }
     };
 
     const checkCounts = () => {
@@ -119,16 +210,54 @@ function StarBattle({
     };
 
     const checkSolution = () => {
-        for (let r = 0; r < gridSize; r++) if (rowCount[r] > starsPerRow) return setMessage("There are errors");
-        for (let c = 0; c < gridSize; c++) if (colCount[c] > starsPerRow) return setMessage("There are errors");
-        for (let region of Object.keys(regionCount)) if (regionCount[region] > starsPerRow) return setMessage("There are errors");
 
-        const fullySolved =
-            rowCount.every(count => count === starsPerRow) &&
-            colCount.every(count => count === starsPerRow) &&
-            Object.values(regionCount).every(count => count === starsPerRow);
+        if (solutionGrid) {
+            let mistakes = 0;
+            let allCorrect = true;
 
-        setMessage(fullySolved ? "Puzzle solved!" : "Correct so far!");
+            for (let r = 0; r < gridSize; r++) {
+                for (let c = 0; c < gridSize; c++) {
+                    const val = solutionGrid[r][c]; // 0=empty, 1=star, 2=X
+                    const hasStar = !!grid[r][c];
+                    const hasX = !!xGrid[r][c];
+
+                    if (val === 0 && (hasStar || hasX)) {
+                        // extra mark where it should be empty
+                        mistakes += 1;
+                    } else if (val === 1 && hasX) {
+                        // X in a star cell is a mistake
+                        mistakes += 1;
+                    } else if (val === 2 && hasStar) {
+                        // star in an X cell is a mistake
+                        mistakes += 1;
+                    }
+
+                    // Check if all required stars/Xs are placed
+                    if ((val === 1 && !hasStar) || (val === 2 && !hasX)) {
+                        allCorrect = false;
+                    }
+                }
+            }
+
+            // Determine message
+            if (mistakes > 1) setMessage(`There are ${mistakes} mistakes in the grid.`);
+            else if (mistakes === 1) setMessage("There is 1 mistake in the grid.");
+            else if (allCorrect) setMessage("Finished!");
+            else setMessage("Correct so far!");
+        }
+
+        else {
+            for (let r = 0; r < gridSize; r++) if (rowCount[r] > starsPerRow) return setMessage("There are errors");
+            for (let c = 0; c < gridSize; c++) if (colCount[c] > starsPerRow) return setMessage("There are errors");
+            for (let region of Object.keys(regionCount)) if (regionCount[region] > starsPerRow) return setMessage("There are errors");
+
+            const fullySolved =
+                rowCount.every(count => count === starsPerRow) &&
+                colCount.every(count => count === starsPerRow) &&
+                Object.values(regionCount).every(count => count === starsPerRow);
+
+            setMessage(fullySolved ? "Puzzle solved!" : "Correct so far!");
+        }
     };
 
     const getCellBorders = (r, c) => {
@@ -141,9 +270,10 @@ function StarBattle({
     };
 
     return (
-        <div className="relative inline-block m-4">
+        <div className={`inline-block m-4 p-2 rounded-md
+    ${message === "Finished!" ? "border-4 border-green-500" : "border border-gray-300"}`}>
             <div
-                className="grid relative z-20"
+                className="grid relative z-20 select-none"
                 style={{
                     gridTemplateColumns: `repeat(${gridSize}, ${cellSize}px)`,
                     gap: `${gap}px`,
@@ -154,19 +284,21 @@ function StarBattle({
                         // compute background class
                         const bgClass = cell && isViolation(r, c)
                             ? "bg-red-400"
-                            : lockedGrid[r][c]
-                                ? "bg-gray-100"
-                                : shadedGrid[r][c]
-                                    ? "bg-green-200"
+                            : shadedGrid[r][c]
+                                ? "bg-green-200"
+                                : lockedGrid[r][c]
+                                    ? "bg-gray-100"
                                     : "bg-white";
 
                         return (
                             <div
                                 key={`${r}-${c}`}
                                 className={`w-12 h-12 flex items-center justify-center cursor-pointer box-border
-                            ${getCellBorders(r, c)} ${bgClass}`}
+                                    ${getCellBorders(r, c)} ${bgClass}`}
                                 onClick={() => toggleStar(r, c)}
-                                onContextMenu={(e) => toggleX(r, c, e)}
+                                onContextMenu={(e) => e.preventDefault()} // block the browser menu
+                                onMouseDown={(e) => handleRightMouseDown(e, r, c)}
+                                onMouseEnter={(e) => handleRightMouseEnter(e, r, c)}
                             >
                                 {cell && (
                                     <img
@@ -195,7 +327,7 @@ function StarBattle({
                 >
                     Check Solution
                 </button>
-                {message && <p className="mt-2 text-lg font-semibold text-gray-800">{message}</p>}
+                {message && <p className="mt-2 text-lg font-semibold text-white-800">{message}</p>}
             </div>
         </div>
     );

@@ -31,7 +31,10 @@ function Contact() {
                             className='space-y-4'>
                             <div>
                                 <label htmlFor="name">Your Name</label>
-                                <input type="text" name="name"
+                                <input type="text"
+                                    name="name"
+                                    minLength={2}
+                                    maxLength={50}
                                     className='w-full p-2 rounded bg-gray-800 border border-gray-600 focus:outline-none focus:border-green-400'
                                     placeholder='Enter Your Name' />
                             </div>
@@ -42,8 +45,21 @@ function Contact() {
                                     placeholder='Enter Your Email' />
                             </div>
                             <div>
+                                <label htmlFor="organization">Organization</label>
+                                <input
+                                    type="text"
+                                    name="organization"
+                                    minLength={2}
+                                    maxLength={50}
+                                    className='w-full p-2 rounded bg-gray-800 border border-gray-600 focus:outline-none focus:border-green-400'
+                                    placeholder='Company, Club, or RSO'
+                                />
+                            </div>
+                            <div>
                                 <label htmlFor="message">Your Message</label>
                                 <textarea name="message"
+                                    minLength={2}
+                                    maxLength={500}
                                     className='w-full p-2 rounded bg-gray-800 border border-gray-600 focus:outline-none focus:border-green-400'
                                     placeholder='Enter Your Message'
                                     rows="5"
