@@ -1,29 +1,29 @@
-import StarBattle from "../components/StarBattle";
-import PuzzleHero from "../components/PuzzleHero";
+import StarBattle from "../components/StarBattle/StarBattle";
+import PuzzleHero from "../components/StarBattle/PuzzleHero";
 
 const puzzles = [
     {
-        title: "Star Frame",
+        title: "Pyramid Scheme",
         description:
             <>
                 <p className="mb-4">
-                    Author: Pyramid Scheme
+                    Author: Grant Fikes
                     Difficulty: 1.5/5
                 </p>
 
-                <p class="text-sm text-gray-400">
+                <p className="text-sm text-gray-400">
                     Puzzle used with permission from{" "}
                     <a href="https://www.gmpuzzles.com/blog/2021/10/star-battle-by-grant-fikes-4/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="underline">
+                        className="underline">
                         Grandmaster Puzzles
                     </a>.
                     This work is licensed under{" "}
                     <a href="https://creativecommons.org/licenses/by-nc-nd/3.0/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="underline">
+                        className="underline">
                         CC BY-NC-ND 3.0
                     </a>.
                 </p>
@@ -52,19 +52,19 @@ const puzzles = [
                     Difficulty: 1.5/5
                 </p>
 
-                <p class="text-sm text-gray-400">
+                <p className="text-sm text-gray-400">
                     Puzzle used with permission from{" "}
                     <a href="https://www.gmpuzzles.com/blog/2022/02/star-battle-by-takeya-saikachi/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="underline">
+                        className="underline">
                         Grandmaster Puzzles
                     </a>.
                     This work is licensed under{" "}
                     <a href="https://creativecommons.org/licenses/by-nc-nd/3.0/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="underline">
+                        className="underline">
                         CC BY-NC-ND 3.0
                     </a>.
                 </p>
@@ -93,19 +93,19 @@ const puzzles = [
                     Difficulty: 2/5
                 </p>
 
-                <p class="text-sm text-gray-400">
+                <p className="text-sm text-gray-400">
                     Puzzle used with permission from{" "}
                     <a href="https://www.gmpuzzles.com/blog/2021/02/star-battle-by-grant-fikes-3/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="underline">
+                        className="underline">
                         Grandmaster Puzzles
                     </a>.
                     This work is licensed under{" "}
                     <a href="https://creativecommons.org/licenses/by-nc-nd/3.0/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="underline">
+                        className="underline">
                         CC BY-NC-ND 3.0
                     </a>.
                 </p>
@@ -134,19 +134,19 @@ const puzzles = [
                     Difficulty: 2/5
                 </p>
 
-                <p class="text-sm text-gray-400">
+                <p className="text-sm text-gray-400">
                     Puzzle used with permission from{" "}
                     <a href="https://www.gmpuzzles.com/blog/2022/02/star-battle-by-ashish-kumar-5/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="underline">
+                        className="underline">
                         Grandmaster Puzzles
                     </a>.
                     This work is licensed under{" "}
                     <a href="https://creativecommons.org/licenses/by-nc-nd/3.0/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="underline">
+                        className="underline">
                         CC BY-NC-ND 3.0
                     </a>.
                 </p>
@@ -175,19 +175,19 @@ const puzzles = [
                     Difficulty: 3/5
                 </p>
 
-                <p class="text-sm text-gray-400">
+                <p className="text-sm text-gray-400">
                     Puzzle used with permission from{" "}
                     <a href="https://www.gmpuzzles.com/blog/2024/05/star-battle-by-jinhoo-ahn-11/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="underline">
+                        className="underline">
                         Grandmaster Puzzles
                     </a>.
                     This work is licensed under{" "}
                     <a href="https://creativecommons.org/licenses/by-nc-nd/3.0/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="underline">
+                        className="underline">
                         CC BY-NC-ND 3.0
                     </a>.
                 </p>
@@ -215,19 +215,19 @@ const puzzles = [
                     Difficulty: 3/5
                 </p>
 
-                <p class="text-sm text-gray-400">
+                <p className="text-sm text-gray-400">
                     Puzzle used with permission from{" "}
                     <a href="https://www.gmpuzzles.com/blog/2021/02/star-battle-by-jonas-gleim/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="underline">
+                        className="underline">
                         Grandmaster Puzzles
                     </a>.
                     This work is licensed under{" "}
                     <a href="https://creativecommons.org/licenses/by-nc-nd/3.0/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="underline">
+                        className="underline">
                         CC BY-NC-ND 3.0
                     </a>.
                 </p>
@@ -255,19 +255,19 @@ const puzzles = [
                     Difficulty: 3/5
                 </p>
 
-                <p class="text-sm text-gray-400">
+                <p className="text-sm text-gray-400">
                     Puzzle used with permission from{" "}
                     <a href="https://www.gmpuzzles.com/blog/2024/08/star-battle-by-saban-erdogan/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="underline">
+                        className="underline">
                         Grandmaster Puzzles
                     </a>.
                     This work is licensed under{" "}
                     <a href="https://creativecommons.org/licenses/by-nc-nd/3.0/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="underline">
+                        className="underline">
                         CC BY-NC-ND 3.0
                     </a>.
                 </p>
@@ -295,19 +295,19 @@ const puzzles = [
                     Difficulty: 3.5/5
                 </p>
 
-                <p class="text-sm text-gray-400">
+                <p className="text-sm text-gray-400">
                     Puzzle used with permission from{" "}
                     <a href="https://www.gmpuzzles.com/blog/2017/05/star-battle-thomas-snyder-5-3/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="underline">
+                        className="underline">
                         Grandmaster Puzzles
                     </a>.
                     This work is licensed under{" "}
                     <a href="https://creativecommons.org/licenses/by-nc-nd/3.0/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="underline">
+                        className="underline">
                         CC BY-NC-ND 3.0
                     </a>.
                 </p>
@@ -338,19 +338,19 @@ const puzzles = [
                     Difficulty: 4/5
                 </p>
 
-                <p class="text-sm text-gray-400">
+                <p className="text-sm text-gray-400">
                     Puzzle used with permission from{" "}
                     <a href="https://www.gmpuzzles.com/blog/2021/12/star-battle-by-thomas-snyder-9/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="underline">
+                        className="underline">
                         Grandmaster Puzzles
                     </a>.
                     This work is licensed under{" "}
                     <a href="https://creativecommons.org/licenses/by-nc-nd/3.0/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="underline">
+                        className="underline">
                         CC BY-NC-ND 3.0
                     </a>.
                 </p>
@@ -384,19 +384,19 @@ const puzzles = [
                     game queens by producing some of the first puzzles.
                 </p>
 
-                <p class="text-sm text-gray-400">
+                <p className="text-sm text-gray-400">
                     Puzzle used with permission from{" "}
                     <a href="https://www.gmpuzzles.com/blog/2020/12/star-battle-by-thomas-snyder-8/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="underline">
+                        className="underline">
                         Grandmaster Puzzles
                     </a>.
                     This work is licensed under{" "}
                     <a href="https://creativecommons.org/licenses/by-nc-nd/3.0/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="underline">
+                        className="underline">
                         CC BY-NC-ND 3.0
                     </a>.
                 </p>

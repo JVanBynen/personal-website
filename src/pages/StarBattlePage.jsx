@@ -1,5 +1,5 @@
-import StarBattle from "../components/StarBattle";
-import BattleHero from "../components/BattleHero";
+import StarBattle from "../components/StarBattle/StarBattle";
+import BattleHero from "../components/StarBattle/BattleHero";
 
 const puzzles = [
     {

@@ -17,7 +17,7 @@ const PuzzleHero = () => {
 
             <p className="text-lg text-gray-300 max-w-2xl mx-auto mb-6 text-left [text-indent:2em]">
                 The puzzles go in order of increasing difficulty. I am warning you now, the harder puzzles
-                can take an average solver over an hour so attempt at your own peril.
+                can take longer than you might expect so attempt at your own peril.
             </p>
 
             <h1 className="text-4xl font-bold mb-4">
