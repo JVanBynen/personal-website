@@ -15,19 +15,23 @@ export default function StarBattleGrid({
     hasStarted,
     isRunning,
     getCellBorders,
+    isSolved,
 }) {
+    // compute overlay/dimming visibility
+    const showOverlay = !isSolved && (!isRunning || !hasStarted);
+    console.log("Overlay check:", { isSolved, isRunning, hasStarted, showOverlay });
+
     return (
         <div className="relative inline-block">
             {/* Dimmed Overlay */}
-            {(!hasStarted || !isRunning) && (
+            {showOverlay && (
                 <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white text-xl font-semibold z-30 rounded">
                     {!hasStarted ? "Press Start to Begin" : "Paused"}
                 </div>
             )}
-
             {/* Puzzle grid itself */}
             <div
-                className={`grid transition-opacity duration-600 select-none ${!hasStarted || !isRunning
+                className={`grid transition-opacity duration-600 select-none ${showOverlay
                     ? "opacity-30 blur-sm pointer-events-none"
                     : "opacity-100"
                     }`}
