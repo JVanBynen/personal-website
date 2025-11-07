@@ -17,10 +17,10 @@ function Footer() {
                         &copy;{new Date().getFullYear()} Joshua VanBynen. All rights reserved.
                     </p>
                     <div className='flex space-x-4 my-4 md:my-0'>
-                        <a href='#' className='text-gray-400 hover:text-white'>
+                        <a href='https://www.linkedin.com/in/joshuavanbynen/' className='text-gray-400 hover:text-white'>
                             <FaLinkedin />
                         </a>
-                        <a href='#' className='text-gray-400 hover:text-white'>
+                        <a href='https://github.com/JVanBynen' className='text-gray-400 hover:text-white'>
                             <FaGithub />
                         </a>
                     </div>
